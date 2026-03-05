@@ -4,6 +4,7 @@ theme = "apollo"
 author = "Mads Zaulich"
 
 
+
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = false
 
@@ -17,10 +18,12 @@ light_theme = "github-light"
 dark_theme = "github-dark"
 error_on_missing_language = false
 highlight_code = true
+
+
 [extra]
 toc = true
 avatar = "images/avatar.png"
-
+favicon = "/icon/fav.svg"
 # Site title shown in header etc.
 name = "Zaulich"
 description = "Notes on Microsoft 365, Azure, and other things."
@@ -30,8 +33,8 @@ fancy_code = true
 
 # Optional: control nav/items (Apollo uses this in templates)
 menu = [
-  { name = "posts", url = "/posts/" },
-  { name = "about", url = "/about/" },
+  { name = "/posts", url = "/posts/" },
+  { name = "/about", url = "/about/" },
 ]
 
 theme = "toggle-auto"
@@ -44,3 +47,4 @@ socials = [
     { name= "linkedin", url="https://www.linkedin.com/in/zaulich/", icon="linkedin" },
     # { name= "mastodon", url= "https://fosstodon.org/@sbmueller", icon="mastodon" },
 ]
+

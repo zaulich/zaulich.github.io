@@ -19,7 +19,7 @@
 {% block main_content %}
     {{ self::home_page(section=section) }}
 
-    <h1>Recent posts❗</h1>
+    <h1>Recent posts 🚀</h1>
     <main class="post-list">
         {% set section = get_section(path="posts/_index.md") %}
         {{ post_macros::list_posts(pages=section.pages | slice(end=5)) }}
