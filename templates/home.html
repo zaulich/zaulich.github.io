@@ -4,6 +4,11 @@
     <main>
         <article>
             <section class="body">
+
+                <div class="home-avatar">
+                    <img src="/images/avatar.png" alt="Avatar" />
+                </div>
+
                 {{ post_macros::page_header(title=section.title) }}
                 {{ section.content | safe }}
             </section>

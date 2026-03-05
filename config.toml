@@ -19,6 +19,7 @@ error_on_missing_language = false
 highlight_code = true
 [extra]
 toc = true
+avatar = "images/avatar.png"
 
 # Site title shown in header etc.
 name = "Zaulich"
@@ -29,8 +30,8 @@ fancy_code = true
 
 # Optional: control nav/items (Apollo uses this in templates)
 menu = [
-  { name = "Posts", url = "/posts/" },
-  { name = "About", url = "/about/" },
+  { name = "posts", url = "/posts/" },
+  { name = "about", url = "/about/" },
 ]
 
 theme = "toggle-auto"
