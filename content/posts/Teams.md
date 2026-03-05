@@ -14,7 +14,7 @@ Microsoft Teams can actually handle this just fine — you just need to flip the
 ## The Magic One-Liner
 
 ```powershell
-#Connect
+Connect
 Set-CsTeamsFilesPolicy -Identity Global -FileSharingInChatsWithExternalUsers Enabled
 ```
 
