@@ -1,22 +1,22 @@
 .home-avatar {
-  display: flex;
-  justify-content: center;
-  margin: 0.2rem 0 -0.6rem 0;   /* trækker titlen tættere op */
+  /* responsiv størrelse: min 72px, typisk ~18vw, max 120px */
+  width: clamp(72px, 18vw, 120px);
+  height: clamp(72px, 18vw, 120px);
+
+  margin: 0.2rem auto -0.6rem auto;
+
+  border-radius: 50%;
+  overflow: hidden;
+
+  /* gør den immun overfor generelle img-regler */
+  flex: 0 0 auto;
 }
 
 .home-avatar img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;  /* neutraliserer img { max-width: 100% } issues */
   object-fit: cover;
+  display: block;
   image-rendering: pixelated;
-}
-
-/* mindre luft omkring hero teksten */
-.body h1 {
-  margin-top: 0;
-}
-
-.body {
-  padding-top: 0.5rem;
 }
