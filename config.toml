@@ -3,6 +3,7 @@ title = "zaulich"          # eller "Mads Zaulich"
 theme = "apollo"
 author = "Mads Zaulich"
 
+
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = false
 
@@ -17,6 +18,7 @@ dark_theme = "github-dark"
 error_on_missing_language = false
 highlight_code = true
 [extra]
+toc = true
 
 # Site title shown in header etc.
 name = "Zaulich"
