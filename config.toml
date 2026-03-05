@@ -1,0 +1,43 @@
+base_url = "https://zaulich.dk"
+title = "zaulich"          # eller "Mads Zaulich"
+theme = "apollo"
+author = "Mads Zaulich"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = false
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+[markdown]
+[markdown.highlighting]
+style = "class"
+light_theme = "github-light"
+dark_theme = "github-dark"
+error_on_missing_language = false
+highlight_code = true
+[extra]
+
+# Site title shown in header etc.
+name = "Zaulich"
+description = "Notes on Microsoft 365, Azure, and other things."
+fancy_code = true
+# Apollo expects socials to exist (can be empty)
+
+
+# Optional: control nav/items (Apollo uses this in templates)
+menu = [
+  { name = "Posts", url = "/posts/" },
+  { name = "About", url = "/about/" },
+]
+
+theme = "toggle-auto"
+#favicon = "icon/favicon.png"
+footer = "Copyright © 2026 Zaulich ApS. All rights reserved."
+mathjax = true
+
+socials = [
+   # { name= "github", url= "https://github.com/sbmueller/", icon="github" },
+    { name= "linkedin", url="https://www.linkedin.com/in/zaulich/", icon="linkedin" },
+    # { name= "mastodon", url= "https://fosstodon.org/@sbmueller", icon="mastodon" },
+]
