@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" class="dark light">
+
+    <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="base" content="https:&#x2F;&#x2F;zaulich.dk" />
+
+    
+
+    
+
+    
+    
+    
+        <title>
+            
+                zaulich
+            
+        </title>
+
+        
+            <meta property="og:title"
+                  content="zaulich" />
+        
+    
+
+    
+        
+    
+
+    
+        
+    
+
+    
+    
+        <link rel="icon"
+              type="image/png"
+              href="https://zaulich.dk/icon/fav.svg" />
+    
+
+    
+    
+        <link href=https://zaulich.dk/fonts.css rel="stylesheet" />
+    
+
+    
+    
+
+    
+    
+        <script defer src=https://zaulich.dk/js/codeblock.js></script>
+    
+
+    
+    
+        <script defer src=https://zaulich.dk/js/toc.js></script>
+    
+
+    
+    
+
+    
+        
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    
+
+    
+    
+
+
+    
+
+    
+    
+        
+            <link id="syntaxLightStyle"
+                  rel="stylesheet"
+                  type="text/css"
+                  href="https://zaulich.dk/giallo-light.css" />
+            <link id="syntaxDarkStyle"
+                  rel="stylesheet"
+                  type="text/css"
+                  href="https://zaulich.dk/giallo-dark.css"
+                  disabled />
+        
+    
+
+    
+    
+        <link rel="stylesheet"
+              type="text/css"
+              href="https://zaulich.dk/theme/light.css" />
+        <link id="darkModeStyle"
+              rel="stylesheet"
+              type="text/css"
+              href="https://zaulich.dk/theme/dark.css" />
+    
+
+    
+        
+            <script>
+                var themeToggleMode = "toggle-auto";
+            </script>
+        
+        <script src=https://zaulich.dk/js/themetoggle.js></script>
+
+        
+            <script>
+                setTheme(getSavedTheme());
+            </script>
+        
+    
+
+
+    <link rel="stylesheet"
+          type="text/css"
+          media="screen"
+          href="https://zaulich.dk/main.css" />
+
+    
+
+    <script defer
+                    src="https://zaulich.dk/search_index.en.js?h=3fe2d7113964409146f4"></script>
+        <script defer
+                src="https://zaulich.dk/js/searchElasticlunr.min.js?h=3626c0ef99daa745b31e"></script></head>
+
+
+    <body>
+        <div class="left-content">
+            
+            
+        </div>
+
+        <div class="content">
+            <nav>
+    <div class="left-nav">
+        
+            <a href=https:&#x2F;&#x2F;zaulich.dk>zaulich</a>
+        
+
+
+        <div class="socials">
+            
+                
+            
+            
+                <a rel='me' href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;zaulich&#x2F;" class="social">
+                    <img alt="linkedin"
+                         src="https://zaulich.dk/icons/social/linkedin.svg" />
+                </a>
+            
+        </div>
+    </div>
+
+    <div class="right-nav">
+        
+            <a href=https://zaulich.dk/posts style="margin-right: 0.5em">&#x2F;posts</a>
+        
+            <a href=https://zaulich.dk/about style="margin-right: 0.5em">&#x2F;about</a>
+        
+            <a href=https://zaulich.dk/tags style="margin-right: 0.5em">&#x2F;tags</a>
+        
+
+        
+            <button id="search-button"
+                    class="search-button"
+                    title="$SHORTCUT to open search">
+                <img src="https://zaulich.dk/icons/search.svg"
+                     alt="Search"
+                     class="search-icon" />
+            </button>
+
+            <div id="searchModal"
+                 class="search-modal js"
+                 role="dialog"
+                 aria-labelledby="modalTitle">
+                <div id="modal-content">
+                    <h1 id="modalTitle" class="page-header">
+                        Search
+                    </h1>
+                    <div id="searchBar">
+                        <input id="searchInput"
+                               role="combobox"
+                               autocomplete="off"
+                               spellcheck="false"
+                               aria-expanded="false"
+                               aria-controls="results-container"
+                               placeholder="Search..." />
+                        <button id="clear-search" class="clear-button" title="Clear search">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="results-container">
+                        <div id="results-info">
+                            <span id="zero_results" style="display: none;">No results</span>
+                            <span id="one_result" style="display: none;">1 result</span>
+                            <span id="many_results" style="display: none;">$NUMBER results</span>
+                        </div>
+                        <div id="results" role="listbox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+
+        
+        
+            <a id="dark-mode-toggle"
+               onclick="toggleTheme(); event.preventDefault();"
+               href="#">
+                <img src="https://zaulich.dk/icons/sun.svg" id="sun-icon" alt="Light" />
+                <img src="https://zaulich.dk/icons/moon.svg"
+                     id="moon-icon"
+                     style="filter: invert(1)"
+                     alt="Dark" />
+                
+                    <img src="https://zaulich.dk/icons/auto.svg"
+                         id="auto-icon"
+                         style="filter: invert(1)"
+                         alt="Auto" />
+                
+            </a>
+
+            <!-- Initialize the theme toggle icons -->
+            <script>
+                updateItemToggleTheme()
+            </script>
+        
+    </div>
+</nav>
+
+
+            
+            
+    <div>
+        
+            
+    
+        <div class="page-header">
+            Tags
+        </div>
+    
+
+        
+
+        <main class="tag-list">
+            
+            
+
+            
+
+            <ul>
+                    <div class="post-header">
+                        <h1 class="title">
+                            <a href=https:&#x2F;&#x2F;zaulich.dk&#x2F;tags&#x2F;azure&#x2F;>Azure</a>
+                        </h1>
+
+                        <small class="meta">1 page</small>
+                    </div>
+                
+                    <div class="post-header">
+                        <h1 class="title">
+                            <a href=https:&#x2F;&#x2F;zaulich.dk&#x2F;tags&#x2F;entraid&#x2F;>EntraID</a>
+                        </h1>
+
+                        <small class="meta">1 page</small>
+                    </div>
+                
+                    <div class="post-header">
+                        <h1 class="title">
+                            <a href=https:&#x2F;&#x2F;zaulich.dk&#x2F;tags&#x2F;identity&#x2F;>Identity</a>
+                        </h1>
+
+                        <small class="meta">1 page</small>
+                    </div>
+                
+                    <div class="post-header">
+                        <h1 class="title">
+                            <a href=https:&#x2F;&#x2F;zaulich.dk&#x2F;tags&#x2F;powershell&#x2F;>PowerShell</a>
+                        </h1>
+
+                        <small class="meta">1 page</small>
+                    </div>
+                
+                    <div class="post-header">
+                        <h1 class="title">
+                            <a href=https:&#x2F;&#x2F;zaulich.dk&#x2F;tags&#x2F;teams&#x2F;>Teams</a>
+                        </h1>
+
+                        <small class="meta">1 page</small>
+                    </div>
+                </ul>
+        </main>
+    </div>
+
+
+            
+                
+            
+
+            
+        </div>
+
+        <div class="right-content">
+            
+            
+        </div>
+    </body>
+
+</html>

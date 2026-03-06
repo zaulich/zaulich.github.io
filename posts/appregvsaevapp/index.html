@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en" class="dark light">
+
+    <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="base" content="https:&#x2F;&#x2F;zaulich.dk" />
+
+    
+
+    
+
+    
+    
+    
+        <title>
+            
+                App Registration vs Enterprise Application 
+            
+        </title>
+
+        
+            <meta property="og:title"
+                  content="App Registration vs Enterprise Application " />
+        
+    
+
+    
+        
+            <meta property="og:description" content="Understand the difference between App Registrations and Enterprise Applications in Microsoft Entra ID." />
+        
+    
+
+    
+        
+            <meta name="description" content="Understand the difference between App Registrations and Enterprise Applications in Microsoft Entra ID." />
+        
+    
+
+    
+    
+        <link rel="icon"
+              type="image/png"
+              href="https://zaulich.dk/icon/fav.svg" />
+    
+
+    
+    
+        <link href=https://zaulich.dk/fonts.css rel="stylesheet" />
+    
+
+    
+    
+
+    
+    
+        <script defer src=https://zaulich.dk/js/codeblock.js></script>
+    
+
+    
+    
+        <script defer src=https://zaulich.dk/js/toc.js></script>
+    
+
+    
+    
+
+    
+        
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    
+
+    
+    
+
+
+    
+
+    
+    
+        
+            <link id="syntaxLightStyle"
+                  rel="stylesheet"
+                  type="text/css"
+                  href="https://zaulich.dk/giallo-light.css" />
+            <link id="syntaxDarkStyle"
+                  rel="stylesheet"
+                  type="text/css"
+                  href="https://zaulich.dk/giallo-dark.css"
+                  disabled />
+        
+    
+
+    
+    
+        <link rel="stylesheet"
+              type="text/css"
+              href="https://zaulich.dk/theme/light.css" />
+        <link id="darkModeStyle"
+              rel="stylesheet"
+              type="text/css"
+              href="https://zaulich.dk/theme/dark.css" />
+    
+
+    
+        
+            <script>
+                var themeToggleMode = "toggle-auto";
+            </script>
+        
+        <script src=https://zaulich.dk/js/themetoggle.js></script>
+
+        
+            <script>
+                setTheme(getSavedTheme());
+            </script>
+        
+    
+
+
+    <link rel="stylesheet"
+          type="text/css"
+          media="screen"
+          href="https://zaulich.dk/main.css" />
+
+    
+
+    <script defer
+                    src="https://zaulich.dk/search_index.en.js?h=3fe2d7113964409146f4"></script>
+        <script defer
+                src="https://zaulich.dk/js/searchElasticlunr.min.js?h=3626c0ef99daa745b31e"></script></head>
+
+
+    <body>
+        <div class="left-content">
+            
+            
+        </div>
+
+        <div class="content">
+            <nav>
+    <div class="left-nav">
+        
+            <a href=https:&#x2F;&#x2F;zaulich.dk>zaulich</a>
+        
+
+
+        <div class="socials">
+            
+                
+            
+            
+                <a rel='me' href="https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;zaulich&#x2F;" class="social">
+                    <img alt="linkedin"
+                         src="https://zaulich.dk/icons/social/linkedin.svg" />
+                </a>
+            
+        </div>
+    </div>
+
+    <div class="right-nav">
+        
+            <a href=https://zaulich.dk/posts style="margin-right: 0.5em">&#x2F;posts</a>
+        
+            <a href=https://zaulich.dk/about style="margin-right: 0.5em">&#x2F;about</a>
+        
+            <a href=https://zaulich.dk/tags style="margin-right: 0.5em">&#x2F;tags</a>
+        
+
+        
+            <button id="search-button"
+                    class="search-button"
+                    title="$SHORTCUT to open search">
+                <img src="https://zaulich.dk/icons/search.svg"
+                     alt="Search"
+                     class="search-icon" />
+            </button>
+
+            <div id="searchModal"
+                 class="search-modal js"
+                 role="dialog"
+                 aria-labelledby="modalTitle">
+                <div id="modal-content">
+                    <h1 id="modalTitle" class="page-header">
+                        Search
+                    </h1>
+                    <div id="searchBar">
+                        <input id="searchInput"
+                               role="combobox"
+                               autocomplete="off"
+                               spellcheck="false"
+                               aria-expanded="false"
+                               aria-controls="results-container"
+                               placeholder="Search..." />
+                        <button id="clear-search" class="clear-button" title="Clear search">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div id="results-container">
+                        <div id="results-info">
+                            <span id="zero_results" style="display: none;">No results</span>
+                            <span id="one_result" style="display: none;">1 result</span>
+                            <span id="many_results" style="display: none;">$NUMBER results</span>
+                        </div>
+                        <div id="results" role="listbox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+
+        
+        
+            <a id="dark-mode-toggle"
+               onclick="toggleTheme(); event.preventDefault();"
+               href="#">
+                <img src="https://zaulich.dk/icons/sun.svg" id="sun-icon" alt="Light" />
+                <img src="https://zaulich.dk/icons/moon.svg"
+                     id="moon-icon"
+                     style="filter: invert(1)"
+                     alt="Dark" />
+                
+                    <img src="https://zaulich.dk/icons/auto.svg"
+                         id="auto-icon"
+                         style="filter: invert(1)"
+                         alt="Auto" />
+                
+            </a>
+
+            <!-- Initialize the theme toggle icons -->
+            <script>
+                updateItemToggleTheme()
+            </script>
+        
+    </div>
+</nav>
+
+
+            
+            
+    
+    <div class="visible-element-observer-root" data-selector="main article p">
+        <main>
+            <article>
+                <div class="title">
+                    
+    
+        <div class="page-header">
+            App Registration vs Enterprise Application 
+        </div>
+    
+
+
+                    <div class="meta">
+                        
+                            <span>Posted on <time>2026-03-06</time></span>
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+                        
+
+                        
+                        
+
+                        
+                        
+                            <span> - </span>
+                            <span class="tags">
+                                    <a href="https://zaulich.dk/tags/entraid/"
+                                       class="post-tag">EntraID</a> 
+                                
+                                    <a href="https://zaulich.dk/tags/azure/"
+                                       class="post-tag">Azure</a> 
+                                
+                                    <a href="https://zaulich.dk/tags/identity/"
+                                       class="post-tag">Identity</a>
+                                
+                            </span>
+                        
+
+                        
+                    </div>
+                </div>
+
+                
+
+                <section class="body">
+                    <div class="tldr-box">
+    <div class="tldr-header">
+        🧠 TL;DR
+    </div>
+
+    <div class="tldr-content">
+        <p><strong>Don't want the long explanation?</strong></p>
+<p>An <strong>App Registration</strong> is the <strong>application definition</strong>.</p>
+<p>An <strong>Enterprise Application</strong> is the <strong>instance of that application inside a tenant</strong>.</p>
+<p>Every App Registration automatically creates an Enterprise Application in the same tenant.</p>
+<p>Think of it like:</p>
+<ul>
+<li>App Registration → the <strong>blueprint</strong></li>
+<li>Enterprise Application → the <strong>installation</strong></li>
+</ul>
+
+    </div>
+</div>
+<hr />
+<h2 id="the-problem">The problem</h2>
+<p><img src="/images/doh.gif"
+     style="float:right;width:260px;margin:0 0 1rem 1.5rem;border-radius:6px;"></p>
+<p>If you've spent more than <strong>five minutes</strong> inside Microsoft Entra ID,<br />
+you've probably seen these two menus:</p>
+<ul>
+<li><strong>App registrations</strong></li>
+<li><strong>Enterprise applications</strong></li>
+</ul>
+<p>And at some point you probably asked yourself:</p>
+<blockquote>
+<p>Why are there two things that look like the same thing?</p>
+</blockquote>
+<p>You create an app.</p>
+<p>Then suddenly you see <strong>another app with the same name somewhere else</strong>.</p>
+<p>Did Azure duplicate it?<br />
+Did someone clone it?<br />
+Did you break something?</p>
+<p>No.</p>
+<p>You're just looking at <strong>two different perspectives of the same application</strong>.</p>
+<div style="clear: both;"></div>
+<hr />
+<h2 id="the-short-explanation">The short explanation</h2>
+<p>The easiest way to think about it:</p>
+<table><thead><tr><th>Thing</th><th>What it represents</th></tr></thead><tbody>
+<tr><td><strong>App Registration</strong></td><td>The <strong>application definition</strong></td></tr>
+<tr><td><strong>Enterprise Application</strong></td><td>The <strong>application inside a tenant</strong></td></tr>
+</tbody></table>
+<p>Or more technically:</p>
+<table><thead><tr><th>Object</th><th>Entra ID terminology</th></tr></thead><tbody>
+<tr><td>App Registration</td><td><strong>Application Object</strong></td></tr>
+<tr><td>Enterprise Application</td><td><strong>Service Principal</strong></td></tr>
+</tbody></table>
+<p>In simple terms:</p>
+<ul>
+<li><strong>App Registration</strong> → describes the application</li>
+<li><strong>Enterprise Application</strong> → represents the application <strong>inside a tenant</strong></li>
+</ul>
+<p>One application definition can exist in <strong>many tenants</strong>.</p>
+<p>Each tenant gets its <strong>own Enterprise Application</strong>.</p>
+<hr />
+<h2 id="visual-explanation">Visual explanation</h2>
+<p>This relationship becomes much clearer visually.</p>
+<script src=https://zaulich.dk/js/mermaid.js></script>
+
+<pre class="mermaid">
+  graph LR
+
+    A[App Registration<br>Application Object]
+    B[Enterprise Application<br>Service Principal<br>Tenant A]
+    C[Enterprise Application<br>Service Principal<br>Tenant B]
+    D[Enterprise Application<br>Service Principal<br>Tenant C]
+
+    A --> B
+    A --> C
+    A --> D
+
+    style A fill:#DF6155,stroke:#333,stroke-width:2px,color:#fff
+    style B fill:#e6f3ff,stroke:#333
+    style C fill:#e6f3ff,stroke:#333
+    style D fill:#e6f3ff,stroke:#333
+</pre>
+<p>What happens here:</p>
+<ol>
+<li>A developer creates <strong>one App Registration</strong></li>
+<li>When the application is used in a tenant</li>
+<li>Azure creates a <strong>Service Principal</strong></li>
+<li>That Service Principal appears as an <strong>Enterprise Application</strong></li>
+</ol>
+<p>So the same application can appear in <strong>many tenants at once</strong>.</p>
+<hr />
+<h2 id="what-actually-happens-when-you-create-an-app">What actually happens when you create an app</h2>
+<p>When you click <strong>New registration</strong> in Entra ID, this is what really happens:</p>
+<script src=https://zaulich.dk/js/mermaid.js></script>
+
+<pre class="mermaid">
+  graph LR
+
+    A[Developer creates App Registration]
+    B[Application Object created]
+    C[Service Principal created]
+    D[Enterprise Application appears in tenant]
+
+    A --> B --> C --> D
+
+    style B fill:#DF6155,stroke:#333,color:#fff
+</pre>
+<p>Meaning:</p>
+<p>Every <strong>App Registration automatically creates a Service Principal in the same tenant</strong>.</p>
+<p>That Service Principal is what you see as an <strong>Enterprise Application</strong>.</p>
+<p>Which is why you suddenly see <strong>two objects with the same name</strong>.</p>
+<p>They're supposed to exist.</p>
+<hr />
+<h2 id="why-microsoft-separated-these-two-things">Why Microsoft separated these two things</h2>
+<p>Because an <strong>application definition</strong> and a <strong>tenant configuration</strong> are different problems.</p>
+<table><thead><tr><th>Layer</th><th>Example settings</th></tr></thead><tbody>
+<tr><td><strong>App Registration</strong></td><td>Redirect URIs, certificates, API permissions</td></tr>
+<tr><td><strong>Enterprise Application</strong></td><td>User assignments, Conditional Access, SSO</td></tr>
+</tbody></table>
+<p>So typically:</p>
+<ul>
+<li><strong>Developers manage App Registrations</strong></li>
+<li><strong>Administrators manage Enterprise Applications</strong></li>
+</ul>
+<p>Two roles.<br />
+Two interfaces.</p>
+<p>One application.</p>
+<hr />
+<h2 id="where-confusion-usually-happens">Where confusion usually happens</h2>
+<p>Most confusion appears when troubleshooting authentication.</p>
+<p>Typical questions:</p>
+<blockquote>
+<p>"Why do I see the app twice?"</p>
+</blockquote>
+<p>Because one is the <strong>definition</strong> and the other is the <strong>instance</strong>.</p>
+<blockquote>
+<p>"Where do I assign users?"</p>
+</blockquote>
+<p>Enterprise Application.</p>
+<blockquote>
+<p>"Where do I configure Conditional Access?"</p>
+</blockquote>
+<p>Enterprise Application.</p>
+<blockquote>
+<p>"Where do I configure API permissions?"</p>
+</blockquote>
+<p>App Registration.</p>
+<p>Once you know this split, the portal suddenly makes a lot more sense.</p>
+<hr />
+<h2 id="a-real-world-analogy">A real world analogy</h2>
+<p>Imagine a <strong>software product</strong>.</p>
+<table><thead><tr><th>Concept</th><th>Real world analogy</th></tr></thead><tbody>
+<tr><td>App Registration</td><td>The <strong>software blueprint</strong></td></tr>
+<tr><td>Enterprise Application</td><td>The <strong>installation on a server</strong></td></tr>
+</tbody></table>
+<p>You can have:</p>
+<ul>
+<li>One blueprint</li>
+<li>Many installations</li>
+</ul>
+<p>Exactly like applications across tenants.</p>
+<hr />
+<h2 id="final-thought">Final thought</h2>
+<p>The Entra portal makes this feel confusing.</p>
+<p>But the mental model is actually simple.</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>App Registration = The application definition</span></span>
+<span class="giallo-l"><span>Enterprise Application = The application inside your tenant</span></span></code></pre>
+<p>Or in Entra ID terms:</p>
+<pre class="giallo z-code"><code data-lang="plain"><span class="giallo-l"><span>Application Object = App Registration</span></span>
+<span class="giallo-l"><span>Service Principal = Enterprise Application</span></span></code></pre>
+<p>Once you see it that way, the whole identity model suddenly makes a lot more sense.</p>
+<p>And those <strong>two mysterious menus</strong> stop feeling mysterious.</p>
+
+                </section>
+            </article>
+        </main>
+    </div>
+
+
+
+            
+                
+            
+
+            
+        </div>
+
+        <div class="right-content">
+            
+    
+        <div class="toc">
+    <div class="heading">
+        Table of Contents
+    </div>
+    <ul class="toc-list">
+        
+            <li class="parent">
+                
+                <a href="https://zaulich.dk/posts/appregvsaevapp/#the-problem">The problem</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://zaulich.dk/posts/appregvsaevapp/#the-short-explanation">The short explanation</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://zaulich.dk/posts/appregvsaevapp/#visual-explanation">Visual explanation</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://zaulich.dk/posts/appregvsaevapp/#what-actually-happens-when-you-create-an-app">What actually happens when you create an app</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://zaulich.dk/posts/appregvsaevapp/#why-microsoft-separated-these-two-things">Why Microsoft separated these two things</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://zaulich.dk/posts/appregvsaevapp/#where-confusion-usually-happens">Where confusion usually happens</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://zaulich.dk/posts/appregvsaevapp/#a-real-world-analogy">A real world analogy</a>
+
+                
+            </li>
+        
+            <li class="parent">
+                
+                <a href="https://zaulich.dk/posts/appregvsaevapp/#final-thought">Final thought</a>
+
+                
+            </li>
+        
+    </ul>
+</div>
+
+    
+
+        </div>
+    </body>
+
+</html>
