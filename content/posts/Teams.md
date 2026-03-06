@@ -2,116 +2,106 @@
 title = "Enable External File Sharing in Teams Chats"
 date = 2026-03-05
 description = "Allow file sharing in Teams chats with external users using Set-CsTeamsFilesPolicy."
+[taxonomies]
+tags=["Teams","PowerShell"]
 +++
+{% tldr() %}
+**Don't want the long explanation?**
 
-## Quick description
+Run this:
+```powershell
+Connect-MicrosoftTeams
+Set-CsTeamsFilesPolicy -Identity Global -FileSharingInChatsWithExternalUsers Enabled
+{% end %}
 
-Ever been in a Teams chat with someone from another tenant and hit the classic moment:
+------------------------------------------------------------------------
 
-*"Can you just email the file instead?"*
+## The problem
+<img src="/images/doh.gif" 
+     style="float:right;width:260px;margin:0 0 1rem 1.5rem;border-radius:6px;">
+You've probably seen this before.
 
-Yeah… let's not do that.
+You're chatting with someone from another tenant in Teams and want to
+share a file.
 
-With one small policy change, Teams can happily share files directly in chats with external users. No Outlook detours required.
+Then Teams politely tells you <span class="big-no">NO</span>.
 
----
 
-## What does this change?
+So the conversation quickly becomes:
 
-This updates the **Teams Files Policy** (in this case the `Global` policy) to allow **file sharing in chats that include external participants**.
+> "Can you just email the file instead?"
 
-In other words:
+Which is exactly the kind of workflow Teams was supposed to replace.
+<div style="clear: both;"></div>
 
-If someone from another tenant joins a Teams chat with you, you can drop files directly in the conversation — just like you would with internal users.
+------------------------------------------------------------------------
 
----
+## The fix
 
-## What can you do afterwards?
+Teams actually supports file sharing in chats with external users --- it
+just isn't always enabled.
 
-Once enabled, you can:
+By updating the **Teams Files Policy**, you allow users to drop files
+directly into chats that include people from other tenants.
 
-- Share files directly in **1:1 chats with external users**
-- Share files in **group chats that include external participants**
-- Collaborate faster with **partners, vendors, and consultants**
-- Avoid the dreaded **"I'll just email it instead"** workflow
+After enabling this setting, users can:
 
-Basically: Teams chats start behaving like you always expected them to.
+-   Share files in **1:1 chats with external users**
+-   Share files in **group chats with external participants**
+-   Collaborate without falling back to email
 
----
+Exactly how chat collaboration should work.
 
-## What might affect whether it works?
-
-Turning on the policy is only one piece of the puzzle. A few other settings can influence whether file sharing actually works.
-
-Things to check if it doesn't behave as expected:
-
-- **External Access in Teams**  
-  If external access is disabled, users from other tenants can't properly participate in chats.
-
-- **SharePoint / OneDrive external sharing settings**  
-  Files shared in chat are actually stored in **OneDrive** behind the scenes.  
-  If external sharing is restricted there, the upload or share might fail.
-
-- **Sensitivity Labels / Microsoft Purview**  
-  Labels or DLP policies may block external sharing depending on classification.
-
-- **Conditional Access policies**  
-  Device requirements or session restrictions might affect file access.
-
-- **Client caching / policy propagation**  
-  Policy changes can take a little while to propagate. Sometimes a Teams restart helps.
-
----
+------------------------------------------------------------------------
 
 ## PowerShell
 
-Below is the quickest way to enable the setting.
+All it takes is one setting.
 
-```powershell
-# ------------------------------------------------------------
-# Rights required
-# ------------------------------------------------------------
-# Teams Service Administrator
-# Global Administrator
-# or equivalent role with permission to manage Teams policies
+``` powershell
+# Requires:
+# Teams Service Administrator or Global Administrator
 
-# ------------------------------------------------------------
-# Connect to Microsoft Teams
-# ------------------------------------------------------------
 Connect-MicrosoftTeams
-
-# ------------------------------------------------------------
-# Enable file sharing with external users in chats
-# ------------------------------------------------------------
-# This updates the Global Teams Files Policy so users
-# can share files in chats that include external participants.
 
 Set-CsTeamsFilesPolicy `
     -Identity Global `
     -FileSharingInChatsWithExternalUsers Enabled
-
-# ------------------------------------------------------------
-# Verify the configuration
-# ------------------------------------------------------------
-# This confirms the policy setting is enabled.
-
-Get-CsTeamsFilesPolicy -Identity Global |
-Select-Object Identity, FileSharingInChatsWithExternalUsers
-
-# Expected output:
-#
-# Identity   FileSharingInChatsWithExternalUsers
-# --------   -----------------------------------
-# Global     Enabled
 ```
 
----
+Optional sanity check:
 
-## Final thoughts
+``` powershell
+Get-CsTeamsFilesPolicy -Identity Global |
+Select Identity, FileSharingInChatsWithExternalUsers
+```
 
-Sometimes the difference between *"This collaboration is easy"* and  
-*"Can you just email the file?"*  
+------------------------------------------------------------------------
 
-…is literally one PowerShell command.
+## If it still doesn't work
 
-Flip the switch, keep the conversation in Teams, and let files travel across tenants the way they probably should have all along.
+This setting is only one piece of the puzzle. File sharing can still be
+affected by:
+
+-   **External Access in Teams**
+-   **OneDrive / SharePoint external sharing settings**
+-   **Sensitivity labels or DLP policies**
+-   **Conditional Access restrictions**
+
+But in most environments, enabling this policy is the missing piece.
+
+------------------------------------------------------------------------
+
+## Final thought
+
+Sometimes improving collaboration across tenants sounds like a big
+project.
+
+Sometimes it's just:
+
+``` powershell
+Set-CsTeamsFilesPolicy -Identity Global -FileSharingInChatsWithExternalUsers Enabled
+```
+
+And suddenly nobody has to say\
+*"I'll just email it instead."*

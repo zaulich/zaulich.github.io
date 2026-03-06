@@ -96,3 +96,37 @@ body {
 
   }
 }
+.big-no {
+    font-size: 1.8em;
+    font-weight: 800;
+    color: #DF6155;
+    letter-spacing: 0.05em;
+}
+
+.tldr-box {
+    background: #fff5f4;
+    border-left: 4px solid #DF6155;
+    padding: 1.2rem 1.4rem;
+    margin: 2rem 0;
+    border-radius: 6px;
+}
+
+.tldr-header {
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: #DF6155;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+}
+
+.tldr-content {
+    color: #333;
+}
+
+.tldr-box pre {
+    margin-top: 0.8rem;
+}
+
+.tldr-box code {
+    font-size: 0.9rem;
+}
